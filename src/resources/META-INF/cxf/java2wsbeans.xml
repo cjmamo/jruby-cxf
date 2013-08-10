@@ -38,7 +38,7 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id='AegisDatabindingBean' class="org.apache.cxf.aegis.databinding.AegisDatabinding" scope="prototype" />
+    <bean id='AegisDatabindingBean' class="org.jrubycxf.aegis.databinding.AegisDatabinding" scope="prototype" />
 
 
 </beans>

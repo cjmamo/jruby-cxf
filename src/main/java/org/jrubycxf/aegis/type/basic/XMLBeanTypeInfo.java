@@ -128,7 +128,6 @@ public class XMLBeanTypeInfo extends org.jrubycxf.aegis.type.basic.BeanTypeInfo 
             ensurePropertyInfo(mappedName).setMinOccurs(0);
         }
 
-
         if (e != null) {
             
 
@@ -175,10 +174,6 @@ public class XMLBeanTypeInfo extends org.jrubycxf.aegis.type.basic.BeanTypeInfo 
                 ensurePropertyInfo(mappedName).setNillable(Boolean.valueOf(nillableVal).booleanValue());
             }
 
-            String minOccurs = DOMUtils.getAttributeValueEmptyNull(e, "minOccurs");
-            if (minOccurs != null && minOccurs.length() > 0) {
-                ensurePropertyInfo(mappedName).setMinOccurs(Integer.parseInt(minOccurs));
-            }
             String maxOccurs = DOMUtils.getAttributeValueEmptyNull(e, "maxOccurs");
             if (maxOccurs != null && maxOccurs.length() > 0) {
                 ensurePropertyInfo(mappedName).setMinOccurs(Integer.parseInt(maxOccurs));

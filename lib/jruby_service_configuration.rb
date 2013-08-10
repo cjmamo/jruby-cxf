@@ -66,7 +66,6 @@ module CXF
 			@declared_methods = {}
 		end
 
-
-	end	
+	end
 
 end

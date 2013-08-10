@@ -13,13 +13,9 @@
 # limitations under the License.
 
 require 'rake'
-require 'date'
 require 'fileutils'
 
-current_date = Time.new
-
 Dir.glob('target/*.jar') {|f| FileUtils.cp File.expand_path(f), 'lib'}
-
 
 Gem::Specification.new do |s|
   s.name        = 'jruby-cxf'
