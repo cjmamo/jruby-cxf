@@ -53,10 +53,10 @@ The module provides the following methods to the class:
   * *returns* => Expected object type returned by the method.
         
 * options - Map of options
-  * *label* => Name given to the corresponding operation XML element in the WSDL. The default value is the name of Ruby 
-  	       method. 
-  * *out_parameter_name* =>  Mapping of the return value
-  * *response_wrapper_name* => Response wrapper name
+  * *label* => Name given to the corresponding operation XML element in the WSDL. The default value is the name of the 
+               Ruby method. 
+  * *out_parameter_name* => Element name of the return value.
+  * *response_wrapper_name* => Response wrapper element name.
 
 ##### Example
 ```ruby
@@ -144,11 +144,11 @@ ComplexType provides the following methods:
 
 #### member(name, type, options = {})
 
-A member acts as an *attr_accessor* but with one important difference: the attributes are typed.
+A member behaves like an *attr_accessor* but with one important difference: attributes are typed.
 
-* name - Property name that corresponds to type element name
+* name - Attribute name.
 
-* type - Property type
+* type - Attribute type.
 
 * options - Map of options
   * *required* => The *minOccurs* for the corresponding type element. True sets the value to 1. False sets the value 
@@ -162,8 +162,6 @@ class Person
 	
    member :name, :string
    member :age, :int, :required => false
-
-   ...
 end
 ```
 
