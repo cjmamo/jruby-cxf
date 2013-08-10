@@ -1,2 +1,4 @@
 .idea
 *.iml
+*.gem
+lib/*.jar

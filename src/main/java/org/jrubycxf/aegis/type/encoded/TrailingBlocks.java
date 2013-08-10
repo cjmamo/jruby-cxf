@@ -16,10 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jrubycxf.aegis.type.encoded;
 
-import java.util.ArrayList;
-import java.util.List;
+/*
+ * Copyright 2013 Claude Mamo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package org.jrubycxf.aegis.type.encoded;
 
 import org.jrubycxf.aegis.Context;
 import org.jrubycxf.aegis.DatabindingException;
@@ -28,6 +41,9 @@ import org.jrubycxf.aegis.type.TypeMapping;
 import org.jrubycxf.aegis.type.basic.ObjectType;
 import org.jrubycxf.aegis.xml.MessageReader;
 import org.jrubycxf.aegis.xml.MessageWriter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TrailingBlocks reads and writes the extra objects referenced but not written in the main message parts.

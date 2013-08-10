@@ -1,3 +1,17 @@
+# Copyright 2013 Claude Mamo
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 module CXF
 	module ComplexType
 		include CXF
@@ -15,11 +29,14 @@ module CXF
 
 		def member(name, type, options = {})
 			name = name.to_s
+			java_name = options[:label].nil? ? name : options[:label]
 			@complex_type_definition ||= {}
 			
-			add_accessors(name, "@#{name}", type)
+			add_accessors(name, java_name, "@#{name}", type)
 
-			member = {name => {type: type, required: options[:required].nil? ? true : options[:required]}}
+			member = {name => {type: type, 
+				               required: options[:required].nil? ? true : options[:required], 
+				               label: java_name}}
 
 			if @complex_type_definition.has_key? 'members'
 				@complex_type_definition['members'] = @complex_type_definition['members'].merge(member)
@@ -31,12 +48,12 @@ module CXF
 
 		private 
 
-		def add_accessors(property_name, ivar_name, type)
-			property_name_capitalized = String.new property_name
-			property_name_capitalized[0] = property_name[0].capitalize
+		def add_accessors(ruby_property_name, java_property_name, ivar_name, type)
+			java_property_name_capitalized = String.new java_property_name
+			java_property_name_capitalized[0] = java_property_name[0].capitalize
 
-			setter_name = ("set" + property_name_capitalized).to_sym
-			getter_name = ("get" + property_name_capitalized).to_sym
+			setter_name = ("set" + java_property_name_capitalized).to_sym
+			getter_name = ("get" + java_property_name_capitalized).to_sym
 
 			# for Aegis
 			send :define_method, setter_name do |value|
@@ -44,7 +61,7 @@ module CXF
 			end
 
 			# for Ruby
-			send :define_method, underscore(property_name) + '=' do |value|
+			send :define_method, ruby_property_name + '=' do |value|
 				setter(ivar_name, value)
 			end
 			
@@ -54,7 +71,7 @@ module CXF
 			end
 
 			# for Ruby
-			send :define_method, underscore(property_name) do
+			send :define_method, ruby_property_name do
 				getter ivar_name
 			end
 
@@ -64,16 +81,6 @@ module CXF
 			add_method_signature(getter_name, [java_param_type])
 
 		end	
-
-    	def underscore(camel_cased_word)
-		    word = camel_cased_word.to_s.dup
-		    word.gsub!(/::/, '/')
-		    word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-		    word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-		    word.tr!("-", "_")
-		    word.downcase!
-		    word
-    	end
 
 		def setter(ivar_name, value)
 			instance_variable_set(ivar_name, value)

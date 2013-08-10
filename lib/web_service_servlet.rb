@@ -1,8 +1,21 @@
+# Copyright 2013 Claude Mamo
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require 'java'
 require 'jruby/core_ext'
 require 'web_service_definition'
 require 'jruby_service_configuration'
-require 'jruby_reflection_service_factory_bean'
 require 'jruby_cxf_non_spring_servlet'
 
 java_import javax.xml.namespace.QName
@@ -21,7 +34,7 @@ module CXF
     		@proxy_servlet.send(m, *args, &block)
   		end 
 
-		def initialize(address = '/')
+		def initialize(path = '/')
 
 			web_service_definition = get_web_service_definition(self)
 
@@ -34,7 +47,7 @@ module CXF
 
 			server_factory = create_server_factory({service_factory: service_factory, 
 							                 	    data_binder: data_binder, 
-								   					address: address, 
+								   					path: path, 
 								   					service_bean: self.class.become_java!.newInstance})
 
 			@proxy_servlet = JRubyCXFNonSpringServlet.new
@@ -53,7 +66,7 @@ module CXF
 
 			web_service.methods.each{ |method|
 
-				if web_service_definition['exposed_methods'].has_key? method		
+				if web_service_definition['exposed_methods'].has_key? method
 
 					in_parameter_names = []
 					web_service_definition['exposed_methods'][method].each{|config_key, config_value|
@@ -71,12 +84,12 @@ module CXF
 				    	method_label = web_service_definition['exposed_methods'][method][:label].to_s
 				    end	
 
-                	unless web_service_definition['exposed_methods'][method][:returns][:wrapper_name].nil?
-				    	response_wrapper_name = web_service_definition['exposed_methods'][method][:returns][:wrapper_name].to_s
+                	unless web_service_definition['exposed_methods'][method][:response_wrapper_name].nil?
+				    	response_wrapper_name = web_service_definition['exposed_methods'][method][:response_wrapper_name].to_s
 				    end	
 
-                	unless web_service_definition['exposed_methods'][method][:returns][:parameter_name].nil?
-						out_parameter_name = web_service_definition['exposed_methods'][method][:returns][:parameter_name].to_s
+                	unless web_service_definition['exposed_methods'][method][:out_parameter_name].nil?
+						out_parameter_name = web_service_definition['exposed_methods'][method][:out_parameter_name].to_s
 				    end	
 
 					declared_methods[method.to_s] = { in_parameter_names: in_parameter_names, 
@@ -121,7 +134,7 @@ module CXF
 			service_factory.get_service_configurations.add(0, service_configuration)
 
 			unless config[:endpoint_name].nil?
-				service_factory.set_endpoint_name(QName.new(config[:endpoint_name])) 
+				service_factory.set_endpoint_name(QName.new(config[:endpoint_name].to_s)) 
 			end			
 
 			return service_factory
@@ -132,7 +145,7 @@ module CXF
 			server_factory.set_service_factory(config[:service_factory])
 			server_factory.set_data_binding(config[:data_binder])
 			server_factory.set_service_bean(config[:service_bean])
-			server_factory.set_address(config[:address])
+			server_factory.set_address(config[:path])
 			
 			return server_factory
 		end 	
@@ -150,8 +163,8 @@ module CXF
 
 	    		complex_type_class.complex_type_definition['members'].each{ |member_name, definition|
 	    			found_complex_types[complex_type_java_class] ||= {}
-	    			found_complex_types[complex_type_java_class][member_name] ||= {}
-					found_complex_types[complex_type_java_class][member_name]['required'] = definition[:required]
+	    			found_complex_types[complex_type_java_class][definition[:label]] ||= {}
+					found_complex_types[complex_type_java_class][definition[:label]]['required'] = definition[:required]
 
 					# avoid infinite recursion
 					if is_complex_type?(definition[:type]) and Kernel.const_get(definition[:type].to_s) != complex_type_class

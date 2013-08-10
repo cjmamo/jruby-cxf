@@ -16,23 +16,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+/*
+ * Copyright 2013 Claude Mamo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package org.jrubycxf.aegis.xml.stax;
 
-import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.cxf.common.util.SOAPConstants;
+import org.apache.cxf.staxutils.DepthXMLStreamReader;
+import org.apache.cxf.staxutils.StaxUtils;
+import org.jrubycxf.aegis.DatabindingException;
+import org.jrubycxf.aegis.xml.AbstractMessageReader;
+import org.jrubycxf.aegis.xml.MessageReader;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jrubycxf.aegis.DatabindingException;
-import org.jrubycxf.aegis.xml.AbstractMessageReader;
-import org.jrubycxf.aegis.xml.MessageReader;
-import org.apache.cxf.common.util.SOAPConstants;
-import org.apache.cxf.staxutils.DepthXMLStreamReader;
-import org.apache.cxf.staxutils.StaxUtils;
+import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Reads literal encoded messages.

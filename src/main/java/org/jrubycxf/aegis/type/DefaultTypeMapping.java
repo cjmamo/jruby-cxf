@@ -16,62 +16,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+/*
+ * Copyright 2013 Claude Mamo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package org.jrubycxf.aegis.type;
 
-import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URI;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.cxf.binding.soap.Soap11;
+import org.apache.cxf.common.classloader.ClassLoaderUtils;
+import org.apache.cxf.common.logging.LogUtils;
+import org.apache.cxf.common.util.SOAPConstants;
+import org.apache.cxf.common.util.XMLSchemaQNames;
+import org.jrubycxf.aegis.type.basic.*;
+import org.jrubycxf.aegis.type.mtom.AbstractXOPType;
+import org.jrubycxf.aegis.type.mtom.DataHandlerType;
+import org.jrubycxf.aegis.type.mtom.DataSourceType;
+import org.jrubycxf.aegis.type.xml.*;
+import org.w3c.dom.Document;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
-
-import org.w3c.dom.Document;
-
-import org.jrubycxf.aegis.type.basic.Base64Type;
-import org.jrubycxf.aegis.type.basic.BigDecimalType;
-import org.jrubycxf.aegis.type.basic.BigIntegerType;
-import org.jrubycxf.aegis.type.basic.BooleanType;
-import org.jrubycxf.aegis.type.basic.ByteType;
-import org.jrubycxf.aegis.type.basic.CalendarType;
-import org.jrubycxf.aegis.type.basic.CharacterAsStringType;
-import org.jrubycxf.aegis.type.basic.CharacterType;
-import org.jrubycxf.aegis.type.basic.DateTimeType;
-import org.jrubycxf.aegis.type.basic.DoubleType;
-import org.jrubycxf.aegis.type.basic.FloatType;
-import org.jrubycxf.aegis.type.basic.IntType;
-import org.jrubycxf.aegis.type.basic.LongType;
-import org.jrubycxf.aegis.type.basic.ObjectType;
-import org.jrubycxf.aegis.type.basic.ShortType;
-import org.jrubycxf.aegis.type.basic.SqlDateType;
-import org.jrubycxf.aegis.type.basic.StringType;
-import org.jrubycxf.aegis.type.basic.TimeType;
-import org.jrubycxf.aegis.type.basic.TimestampType;
-import org.jrubycxf.aegis.type.basic.URIType;
-import org.jrubycxf.aegis.type.mtom.AbstractXOPType;
-import org.jrubycxf.aegis.type.mtom.DataHandlerType;
-import org.jrubycxf.aegis.type.mtom.DataSourceType;
-import org.jrubycxf.aegis.type.xml.DocumentType;
-import org.jrubycxf.aegis.type.xml.JDOMDocumentType;
-import org.jrubycxf.aegis.type.xml.JDOMElementType;
-import org.jrubycxf.aegis.type.xml.SourceType;
-import org.jrubycxf.aegis.type.xml.XMLStreamReaderType;
-import org.apache.cxf.binding.soap.Soap11;
-import org.apache.cxf.common.classloader.ClassLoaderUtils;
-import org.apache.cxf.common.logging.LogUtils;
-import org.apache.cxf.common.util.SOAPConstants;
-import org.apache.cxf.common.util.XMLSchemaQNames;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URI;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * The implementation of the Aegis type map. It maintains a map from

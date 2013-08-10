@@ -1,3 +1,17 @@
+# Copyright 2013 Claude Mamo
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 module CXF
 	module WebServiceDefinition
 		include CXF
@@ -27,9 +41,9 @@ module CXF
 			@web_service_definition['service_name'] = service_name
 		end		
 
-		def expose(name, signature)
+		def expose(name, signature, options = {})
 
-			java_return_type = get_java_type(signature[:returns][:type])
+			java_return_type = get_java_type(signature[:returns])
 
 			java_param_types = []
 			signature[:expects].each {|expect|
@@ -40,8 +54,13 @@ module CXF
 
 			add_method_signature(name.to_s, java_signature)
 
-			exposed_method = { name => { label: signature[:label], expects: signature[:expects], returns: signature[:returns] } }
+			exposed_method = { name.to_sym => { label: options[:label], 
+										        response_wrapper_name: options[:response_wrapper_name], 
+										        out_parameter_name: options[:out_parameter_name], 
+										        expects: signature[:expects], returns: signature[:returns] } }
+			
 			@web_service_definition ||= {}
+
 			if @web_service_definition.has_key? 'exposed_methods'
 				@web_service_definition['exposed_methods'] = @web_service_definition['exposed_methods'].merge(exposed_method)
 			else	

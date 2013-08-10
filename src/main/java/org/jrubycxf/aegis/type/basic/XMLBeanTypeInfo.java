@@ -16,6 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+/*
+ * Copyright 2013 Claude Mamo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package org.jrubycxf.aegis.type.basic;
 
 import org.apache.cxf.common.classloader.ClassLoaderUtils;
@@ -101,10 +117,9 @@ public class XMLBeanTypeInfo extends org.jrubycxf.aegis.type.basic.BeanTypeInfo 
             mappedName = createMappedName(pd, qualify);
         }
 
+        Map<String, Map> complexTypes = ((AbstractTypeCreator) this.getTypeMapping().getTypeCreator()).getConfiguration().getComplexTypes();
 
-        Map<String, Map<String, Map>> complexTypes = ((AbstractTypeCreator) this.getTypeMapping().getTypeCreator()).getConfiguration().getComplexTypes();
-
-        Boolean required = (Boolean) complexTypes.get(this.getTypeClass().getName()).get(pd.getName()).get("required");
+        Boolean required = (Boolean)((Map) complexTypes.get(this.getTypeClass().getName()).get(pd.getName())).get("required");
 
         if (required) {
             ensurePropertyInfo(mappedName).setMinOccurs(1);
