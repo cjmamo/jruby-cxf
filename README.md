@@ -142,7 +142,7 @@ class MyWebService
 end   
 ```
 
-ComplexType provides the following methods:
+*ComplexType* provides the following methods:
 
 #### member(name, type, options = {})
 
