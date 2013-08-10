@@ -126,7 +126,7 @@ end
 ### ComplexType
 
 An exposed method can have a parameter or return complex type. The class implementing the complex type
-must include CXF::ComplexType:
+must include *CXF::ComplexType*:
 
 ```ruby
 class MyComplexType
