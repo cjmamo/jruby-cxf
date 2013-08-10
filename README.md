@@ -3,6 +3,11 @@ JRuby CXF
 
 JRuby CXF is a JRuby gem that wraps the [Apache CXF](http://cxf.apache.org) framework to provide a more friendly API for publishing Web Services.
 
+Requirements
+------------
+
+JRuby CXF was tested with JRuby 1.7.4 and Apache CXF 2.7.6.
+
 Getting started
 ---------------
 
@@ -18,8 +23,8 @@ require 'jruby_cxf'
 4. Add Apache CXF's libraries to the Java classpath before running your application: 
    `jruby -J-cp "/apache-cxf-[version]/lib/*" your_webservice.rb `
 
-Usage
-----
+API Usage
+---------
 
 ### WebServiceServlet
 
@@ -75,7 +80,6 @@ class Calculator
   end
 end
 ```
-
 ####service_name(service_name)
 
 * service_name - Service name of the Web Service. The default value is the name of the Ruby class + *Service*.
@@ -90,7 +94,6 @@ class Calculator
   ...
 end
 ```
-
 ####service_namespace(service_namespace)
 
 * service_namepace - Service's target namespace. The default value is *http://rubjobj/*.
@@ -105,7 +108,6 @@ class Calculator
   ...
 end
 ```
-
 ####endpoint_name(endpoint_name)
 
 * endpoint_name - Service's port name.
@@ -120,7 +122,7 @@ class Calculator
   ...
 end
 ```
-
+---
 ### ComplexType
 
 An exposed method can have a parameter or return complex type. The class implementing the complex type
@@ -179,9 +181,8 @@ class Person
    namespace 'http://jruby-cxf.org'	
 end	
 ```
-
-Supported simple types 
-----------------------
+---
+### Supported simple types 
 
 * big_decimal
 * boolean
@@ -195,4 +196,7 @@ Supported simple types
 * string
 * time
 
+Support 
+-------
 
+If you think you found a bug, please [report it](http://github.com/claudemamo/jruby-cxf/issues).
