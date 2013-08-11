@@ -44,7 +44,7 @@ The default servlet path is the root path but it can be changed by passing a pat
 ...
 my_web_service = MyWebService.new('/my-webservice')
 
-# using Jetty to load my_web_service
+# using Jetty to publish Web Service
 server = org.eclipse.jetty.server.Server.new(8080)
 contexts = org.eclipse.jetty.server.handler.ContextHandlerCollection.new
 server.set_handler(contexts)
