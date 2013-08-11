@@ -206,4 +206,4 @@ end
 Support 
 -------
 
-If you think you found a bug or would like a feature/improvement, please [report it](http://github.com/claudemamo/jruby-cxf/issues).
+Please [report](http://github.com/claudemamo/jruby-cxf/issues) any bugs or desired improvements.
