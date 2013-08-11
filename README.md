@@ -51,7 +51,6 @@ server.set_handler(contexts)
 rootContext = org.eclipse.jetty.servlet.ServletContextHandler.new(contexts, "/")
 rootContext.addServlet(org.eclipse.jetty.servlet.ServletHolder.new(my_web_service), "/*")
 server.start
-...
 ```
 The module provides the following methods to the class:
 
