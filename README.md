@@ -42,7 +42,15 @@ can load an instance of the class.
 The default servlet path is the root path but it can be changed by passing a path to the class's constructor:
 ```ruby
 ...
-MyWebService.new('/my-webservice')
+my_web_service = MyWebService.new('/my-webservice')
+
+# using Jetty to load my_web_service
+server = org.eclipse.jetty.server.Server.new(8080)
+contexts = org.eclipse.jetty.server.handler.ContextHandlerCollection.new
+server.set_handler(contexts)
+rootContext = org.eclipse.jetty.servlet.ServletContextHandler.new(contexts, "/")
+rootContext.addServlet(org.eclipse.jetty.servlet.ServletHolder.new(my_web_service), "/*")
+server.start
 ...
 ```
 The module provides the following methods to the class:
