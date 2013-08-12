@@ -118,20 +118,18 @@ public class XMLBeanTypeInfo extends org.jrubycxf.aegis.type.basic.BeanTypeInfo 
         }
 
         Map<String, Map> complexTypes = ((AbstractTypeCreator) this.getTypeMapping().getTypeCreator()).getConfiguration().getComplexTypes();
+        Map complexType = complexTypes.get(this.getTypeClass().getName());
+        Boolean required = false;
 
-        Boolean required = (Boolean)((Map) complexTypes.get(this.getTypeClass().getName()).get(pd.getName())).get("required");
+        if (complexType != null) {
+            required = (Boolean) complexTypes.get(pd.getName()).get("required");
+        }
 
-        if (required) {
-            ensurePropertyInfo(mappedName).setMinOccurs(1);
-        }
-        else {
-            ensurePropertyInfo(mappedName).setMinOccurs(0);
-        }
+        ensurePropertyInfo(mappedName).setMinOccurs(required ? 1 : 0);
 
         if (e != null) {
             
-
-            QName mappedType = NamespaceHelper.createQName(e, 
+            QName mappedType = NamespaceHelper.createQName(e,
                                                            DOMUtils.getAttributeValueEmptyNull(e, "typeName"),
                                                            getDefaultNamespace());
             if (mappedType != null) {

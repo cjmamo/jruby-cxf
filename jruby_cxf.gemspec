@@ -19,13 +19,14 @@ Dir.glob('target/*.jar') {|f| FileUtils.cp File.expand_path(f), 'lib'}
 
 Gem::Specification.new do |s|
   s.name        = 'jruby-cxf'
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.date        =  Time.now.strftime("%Y-%m-%d")
   s.summary     = "A wrapper for Apache CXF"
-  s.description = "JRuby CXF is a JRuby gem that wraps the Apache CXF framework to provide a more friendly API for publishing Web Services."
+  s.description = "JRuby CXF is a JRuby gem that wraps the Apache CXF framework to provide a friendlier API for publishing Web Services."
   s.author      = 'Claude Mamo'
   s.email       = 'claude.mamo@gmail.com'
   s.files       =  FileList['lib/*.rb', 'lib/*.jar'].to_a
   s.homepage    = 'http://github.com/claudemamo/jruby-cxf'
   s.license     = 'Apache License, Version 2.0'
+  s.test_files  =  FileList['spec/**/*'].to_a
 end
