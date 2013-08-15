@@ -1,7 +1,7 @@
 JRuby CXF [![Gem Version](https://badge.fury.io/rb/jruby-cxf.png)](http://badge.fury.io/rb/jruby-cxf)    
 =========
 
-JRuby CXF is a JRuby gem that wraps the [Apache CXF](http://cxf.apache.org) framework to provide a friendlier API for publishing Web Services.
+JRuby CXF is a JRuby gem that wraps the [Apache CXF](http://cxf.apache.org) framework to provide a friendlier API for publishing SOAP Web Services.
 
 Requirements
 ------------
