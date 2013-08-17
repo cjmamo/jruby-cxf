@@ -19,7 +19,7 @@ Dir.glob('target/*.jar') {|f| FileUtils.cp File.expand_path(f), 'lib'}
 
 Gem::Specification.new do |s|
   s.name        = 'jruby-cxf'
-  s.version     = '1.0.2'
+  s.version     = '1.0.3'
   s.date        =  Time.now.strftime("%Y-%m-%d")
   s.summary     = "A wrapper for Apache CXF"
   s.description = "JRuby CXF is a JRuby gem that wraps the Apache CXF framework to provide a friendlier API for publishing SOAP Web Services."
