@@ -21,7 +21,7 @@
 
     <groupId>org.jrubycxf</groupId>
     <artifactId>jruby-cxf</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <properties>
         <cxf.version>2.7.6</cxf.version>

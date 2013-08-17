@@ -122,7 +122,7 @@ public class XMLBeanTypeInfo extends org.jrubycxf.aegis.type.basic.BeanTypeInfo 
         Boolean required = false;
 
         if (complexType != null) {
-            required = (Boolean) complexTypes.get(pd.getName()).get("required");
+            required = (Boolean) ((Map) complexType.get(pd.getName())).get("required");
         }
 
         ensurePropertyInfo(mappedName).setMinOccurs(required ? 1 : 0);

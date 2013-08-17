@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'jruby-cxf-1.0.jar'
+require 'jruby-cxf-1.1.jar'
 require 'complex_type'
 require 'web_service_servlet'
 
