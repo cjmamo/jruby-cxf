@@ -36,7 +36,7 @@ class MyWebService
     ...
 end
 ```
-*WebServiceServlet* transforms your class into a Java servlet so any servlet container (e.g., Tomcat, Jetty, JBoss AS)
+*WebServiceServlet* transforms your class into a Java servlet so any servlet container (e.g., Apache Tomcat, Jetty, JBoss AS)
 can load an instance of the class. 
 
 The default servlet path is the root path but it can be changed by passing a path to the class's constructor:
