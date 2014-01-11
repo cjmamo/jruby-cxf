@@ -82,6 +82,50 @@ describe CXF::WebServiceServlet do
     end
   end
 
+  context WebServiceWithExposedMethods do
+    subject(:wsdl) { @web_service.wsdl }
+
+    before(:all) do
+      @web_service = WebServiceWithExposedMethods.new
+      @web_service.publish
+    end
+
+    after(:all) do
+      @web_service.teardown
+    end
+
+    it "gives a WSDL with declared methods exposed" do
+      wsdl['definitions']['types']['schema']['complexType'][0]['sequence']['element']['type'].should eq 'xsd:int'
+      wsdl['definitions']['types']['schema']['complexType'][1]['sequence']['element']['type'].should eq 'xsd:int'
+      wsdl['definitions']['types']['schema']['complexType'][2]['sequence']['element']['type'].should eq 'xsd:string'
+      wsdl['definitions']['types']['schema']['complexType'][3]['sequence']['element']['type'].should eq 'xsd:string'
+      wsdl['definitions']['binding']['operation'][0]['name'].should eq 'give_age'
+      wsdl['definitions']['binding']['operation'][1]['name'].should eq 'say_hello'
+    end
+  end
+
+   context WebServiceWithRequiredProperty do
+      subject(:wsdl) { @web_service.wsdl }
+
+      before(:all) do
+        @web_service = WebServiceWithRequiredProperty.new
+        @web_service.publish
+      end
+
+      after(:all) do
+        @web_service.teardown
+      end
+
+      it "gives a WSDL with non-required members having minOccurs set to 0" do
+        wsdl['definitions']['types']['schema'][0]['complexType']['sequence']['element'][2]['minOccurs'].should eq '0'
+      end
+
+      it "gives a WSDL with required members having no minOccurs" do
+        wsdl['definitions']['types']['schema'][0]['complexType']['sequence']['element'][0]['minOccurs'].should eq nil
+        wsdl['definitions']['types']['schema'][0]['complexType']['sequence']['element'][1]['minOccurs'].should eq nil
+      end
+    end
+
   context WebServiceWithServiceNameSet do
     subject(:wsdl) { @web_service.wsdl }
 
